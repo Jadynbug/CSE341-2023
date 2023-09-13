@@ -3,6 +3,9 @@ const lesson01Controller = require('../controllers/lesson-01');
 
 routes.get('/', lesson01Controller.jadynRoute);
 
-routes.get('/Iverson', lesson01Controller.iversonRoute);
+routes.get('/Julie', lesson01Controller.julieRoute);
+
+routes.get('/Scott', lesson01Controller.scottRoute);
+
 
 module.exports = routes;
