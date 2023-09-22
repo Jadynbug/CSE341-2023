@@ -1,5 +1,5 @@
 const mongodb = require('../db/connect');
-
+ 
 const getData = async (req, res, next) => {
     //console.log("in controllers");
     //console.log(req.query);
