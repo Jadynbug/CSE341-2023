@@ -1,0 +1,14 @@
+GET localhost:3000/contacts
+//to get all contacts
+
+GET localhost:3000/contacts?id=1
+//get contact by id
+
+GET localhost:3000/contacts?firstName=Scott
+//get contact by first name
+
+GET localhost:3000/contacts?lastName=Iverson
+//get contact by last name
+
+GET localhost:3000/contacts?favoriteColor=Pink
+//get contact by favorite color

@@ -1,0 +1,9 @@
+div#contactList {
+    display: flex;
+    
+}
+div.contact {
+    padding: 10px;
+    border: 2px cyan solid;
+    margin: 20px;
+}

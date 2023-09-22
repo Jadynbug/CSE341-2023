@@ -1,11 +1,15 @@
 const routes = require('express').Router();
-const lesson01Controller = require('../controllers/lesson-01');
+const Controller = require('../controllers/lesson-01');
 
-routes.get('/', lesson01Controller.jadynRoute);
+routes.get('/', Controller.jadynRoute);
 
-routes.get('/Julie', lesson01Controller.julieRoute);
+routes.get('/Julie', Controller.julieRoute);
 
-routes.get('/Scott', lesson01Controller.scottRoute);
+routes.get('/Scott', Controller.scottRoute);
+
+routes.get('/Contacts', Controller.getData);
+
+//routes.get('/contacts', Controller.contactRoute);
 
 
 module.exports = routes;
