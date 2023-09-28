@@ -1,0 +1,31 @@
+<!DOCTYPE>
+<html lang="en">
+    <%- include('../partials/head.ejs', {title: 'Contacts'}); %>
+
+    <body>
+
+        <div id="contactList">
+            <% if (Array.isArray(info)) { 
+                info.forEach((data) => { %>
+                    <div class="contact">
+                        <p>Contact number: <%= data.id %></p>
+                        <p><%= data.firstName %> <%= data.lastName %></p>
+                        <p>Email: <%= data.email %></p>
+                        <p>Favorite color: <%= data.favoriteColor %></p>
+                        <p>Birthday: <%= data.birthday %></p>
+                    </div>
+            <% }); } else { %>
+                <div class="contact">
+                    <p>Contact number: <%= info.id %></p>
+                    <p><%= info.firstName %> <%= info.lastName %></p>
+                    <p>Email: <%= info.email %></p>
+                    <p>Favorite color: <%= info.favoriteColor %></p>
+                    <p>Birthday: <%= info.birthday %></p>
+                </div>
+            <% }; %>
+        </div>
+
+    </body>
+
+    <%- include('../partials/footer.ejs') %>
+</html>

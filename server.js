@@ -6,6 +6,8 @@ const mongodb = require('./db/connect');
 
 const port = 3000;
 
+app.set('view engine', 'ejs');
+
 app
   .use(bodyParser.json())
   .use((req, res, next) => {

@@ -29,7 +29,15 @@ const getDb = () => {
   return _db;
 };
 
+const closeClient = () => {
+  if (!MongoClient) {
+    console.log('No Mongo client');
+  } 
+  MongoClient.close();
+}
+
 module.exports = {
   initDb,
   getDb,
+  closeClient
 };

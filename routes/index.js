@@ -9,7 +9,12 @@ routes.get('/Scott', Controller.scottRoute);
 
 routes.get('/Contacts', Controller.getData);
 
-//routes.get('/contacts', Controller.contactRoute);
+// routes.get('/contacts', Controller.contactRoute);
 
+routes.post('/addContact', Controller.addContact);
+
+routes.delete("/deleteContact", Controller.deleteContact);
+
+routes.put("/updateContact", Controller.updateContact);
 
 module.exports = routes;

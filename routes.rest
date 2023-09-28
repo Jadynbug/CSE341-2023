@@ -12,3 +12,12 @@ GET localhost:3000/contacts?lastName=Iverson
 
 GET localhost:3000/contacts?favoriteColor=Pink
 //get contact by favorite color
+
+POST localhost:3000/addContact?favoriteColor=Blue&firstName=John&lastName=Smith&birthday=April 1, 2010&email=john@nowhere.com&id=4
+//add contact
+
+PUT localhost:3000/updateContact?id=4&firstName=James&lastName=Smith&favoriteColor=Green
+//update contact
+
+DELETE localhost:3000/deleteContact?id=4
+//delete contact
