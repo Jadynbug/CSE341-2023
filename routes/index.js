@@ -1,6 +1,9 @@
 const routes = require('express').Router();
 const Controller = require('../controllers/lesson-01');
 
+
+routes.use('/', require('./swagger'));
+
 routes.get('/', Controller.jadynRoute);
 
 routes.get('/Julie', Controller.julieRoute);

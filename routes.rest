@@ -21,3 +21,6 @@ PUT localhost:3000/updateContact?id=4&firstName=James&lastName=Smith&favoriteCol
 
 DELETE localhost:3000/deleteContact?id=4
 //delete contact
+
+GET http://localhost:3000/api-docs/
+//swagger api docs
