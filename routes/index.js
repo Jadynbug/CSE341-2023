@@ -14,10 +14,10 @@ routes.get('/Contacts', Controller.getData);
 
 // routes.get('/contacts', Controller.contactRoute);
 
-routes.post('/addContact', Controller.addContact);
+routes.post('/Contacts', Controller.addContact);
 
-routes.delete("/deleteContact", Controller.deleteContact);
+routes.delete("/Contacts", Controller.deleteContact);
 
-routes.put("/updateContact", Controller.updateContact);
+routes.put("/Contacts", Controller.updateContact);
 
 module.exports = routes;

@@ -30,17 +30,17 @@ const addContact = async (req, res, next) => {
     try {
         let newContact = {};
 
-        if (req.query["id"]) {
+        if (req.query["id"] || req.query['_id']) {
             newContact = {
                 firstName: req.query['firstName'],
                 lastName: req.query['lastName'],
                 email: req.query['email'],
                 favoriteColor: req.query['favoriteColor'],
                 birthday: req.query['birthday'],
-                id: req.query['id']
             }
+            if (req.query['id']) {newContact.push({"id": req.query['id']}); };
             // console.log(newContact);
-            if (req.query['firstName'] === undefined || req.query['lastName'] === undefined || req.query['email'] === undefined || req.query['favoriteColor'] === undefined || req.query['birthday'] === undefined || req.query['id'] === undefined) {
+            if (req.query['firstName'] === undefined || req.query['lastName'] === undefined || req.query['email'] === undefined || req.query['favoriteColor'] === undefined || req.query['birthday'] === undefined) {
                 console.log("we've got an undefined!");
                 res.send("undefined error");
             }
@@ -48,7 +48,9 @@ const addContact = async (req, res, next) => {
             req.body = newContact;
 
         } else {
-            if (req.body['firstName'] === undefined || req.body['lastName'] === undefined || req.body['email'] === undefined || req.body['favoriteColor'] === undefined || req.body['birthday'] === undefined || req.body['id'] === undefined) {
+            if (req.body['id']) {newContact.push({"id": req.body['id']}); };
+
+            if (req.body['firstName'] === undefined || req.body['lastName'] === undefined || req.body['email'] === undefined || req.body['favoriteColor'] === undefined || req.body['birthday'] === undefined) {
                 console.log("we've got an undefined!");
                 res.send("undefined error");
             }
@@ -75,9 +77,15 @@ const deleteContact = async (req, res, next) => {
         if (req.query['id']) {
             query = {'id': req.query['id']};
         } 
+        if (req.query['_id']) {
+            query = {'_id': req.query['_id']};
+        }
         if (req.body['id']) {
             query = {'id': req.body['id']};
         } 
+        if (req.body['_id']) {
+            query = {'_id': req.body['_id']};
+        }
         if (!req.query['id'] && !req.body['id']) {
             console.log(query);
             res.send('lack of id error in delete');
@@ -96,26 +104,36 @@ const deleteContact = async (req, res, next) => {
 const updateContact = async (req, res, next) => {
     // console.log(req.query);
     try {
-        if(!req.query['id'] && !req.body['id']) {
+        if((!req.query['id'] || !req.query['_id']) && (!req.body['id'] || !req.body['_id'])) {
             res.send("lack of id error");
         } 
         let update = {};
         let id = {};
         if(req.query['id']) {
+            id = req.query['id'];
+        }
+        if(req.query['_id']) {
+            id = req.query['_id']
+        }
+        if (req.query['id'] || req.query['_id']) {
             if (req.query['firstName']) {update.firstName = req.query['firstName']};
             if (req.query['lastName']) {update.lastName = req.query['lastName']};
             if (req.query['email']) {update.email = req.query['email']};
             if (req.query['favoriteColor']) {update.favoriteColor = req.query['favoriteColor']};
             if (req.query['bithday']) {update.bithday = req.query['bithday']};
-            id = req.query['id'];
         }
         if(req.body['id']) {
+            id = req.body['id'];
+        }
+        if(req.body['_id']) {
+            id = req.body['_id']
+        }
+        if(req.body['id'] || req.body['_id']) {
             if (req.body['firstName']) {update.firstName = req.body['firstName']};
             if (req.body['lastName']) {update.lastName = req.body['lastName']};
             if (req.body['email']) {update.email = req.body['email']};
             if (req.body['favoriteColor']) {update.favoriteColor = req.body['favoriteColor']};
             if (req.body['bithday']) {update.bithday = req.body['bithday']};
-            id = req.body['id'];
         }
         // console.log(update);
         let newValues = {$set: update};
