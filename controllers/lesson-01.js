@@ -1,5 +1,6 @@
 const mongodb = require('../db/connect');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 
 const err = "Problem in controller";
  
@@ -73,25 +74,26 @@ const deleteContact = async (req, res, next) => {
     try {
         let query = {};
         //console.log(req.body["id"]);
+        // console.log(req.body["_id"]);
 
         if (req.query['id']) {
             query = {'id': req.query['id']};
         } 
         if (req.query['_id']) {
-            query = {'_id': req.query['_id']};
+            query = {'_id': new ObjectId(req.query['_id'])};
         }
         if (req.body['id']) {
             query = {'id': req.body['id']};
         } 
         if (req.body['_id']) {
-            query = {'_id': req.body['_id']};
+            query = {'_id': new ObjectId(req.body['_id'])};
         }
-        if (!req.query['id'] && !req.body['id']) {
+        if (!req.query['id'] && !req.body['id'] && !req.body['_id'] && !req.query["_id"]) {
             console.log(query);
             res.send('lack of id error in delete');
         }
 
-        //console.log(query);
+        console.log(query);
     
         let result = await mongodb.getDb().db('CSE341').collection("contacts").deleteOne(query);
     
@@ -104,16 +106,16 @@ const deleteContact = async (req, res, next) => {
 const updateContact = async (req, res, next) => {
     // console.log(req.query);
     try {
-        if((!req.query['id'] || !req.query['_id']) && (!req.body['id'] || !req.body['_id'])) {
+        if((!req.query['id'] && !req.query['_id']) && (!req.body['id'] && !req.body['_id'])) {
             res.send("lack of id error");
         } 
         let update = {};
         let id = {};
         if(req.query['id']) {
-            id = req.query['id'];
+            id = {"id": req.query['id']};
         }
         if(req.query['_id']) {
-            id = req.query['_id']
+            id = {"_id": new ObjectId(req.query['_id'])};
         }
         if (req.query['id'] || req.query['_id']) {
             if (req.query['firstName']) {update.firstName = req.query['firstName']};
@@ -123,10 +125,10 @@ const updateContact = async (req, res, next) => {
             if (req.query['bithday']) {update.bithday = req.query['bithday']};
         }
         if(req.body['id']) {
-            id = req.body['id'];
+            id = {"id": req.body['id']};
         }
         if(req.body['_id']) {
-            id = req.body['_id']
+            id = {"_id": new ObjectId(req.body['_id'])};
         }
         if(req.body['id'] || req.body['_id']) {
             if (req.body['firstName']) {update.firstName = req.body['firstName']};
@@ -138,7 +140,7 @@ const updateContact = async (req, res, next) => {
         // console.log(update);
         let newValues = {$set: update};
 
-        let result = await mongodb.getDb().db('CSE341').collection("contacts").updateOne({'id':id}, newValues);
+        let result = await mongodb.getDb().db('CSE341').collection("contacts").updateOne(id, newValues);
 
         res.send(result).status(204);
     } catch {
