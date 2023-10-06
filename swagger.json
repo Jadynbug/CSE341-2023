@@ -55,9 +55,7 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/addContact": {
+      },
       "post": {
         "description": "",
         "responses": {
@@ -70,9 +68,17 @@
         }
       }
     },
-    "/deleteContact": {
+    "/Contacts/{_id}": {
       "delete": {
         "description": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -81,11 +87,17 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/updateContact": {
+      },
       "put": {
         "description": "",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
