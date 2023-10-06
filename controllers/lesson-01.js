@@ -16,9 +16,9 @@ const getData = async (req, res, next) => {
         const result = await mongodb.getDb().db('CSE341').collection('contacts').find(query);
         console.log("got db");
         result.toArray().then((lists) => {
-        res.setHeader('Content-Type', 'application/json');
-        console.log("header set");
-        res.status(200).json(lists);
+            res.setHeader('Content-Type', 'application/json');
+            console.log("header set");
+            res.status(200).json(lists);
         });
     } catch {
         res.status(500).json(err);
@@ -81,15 +81,18 @@ const deleteContact = async (req, res, next) => {
         }; 
         if (req.query['_id']) {
             query = {'_id': new ObjectId(req.query['_id'])};
+            console.log("query _id");
         };
         if (req.body['id']) {
             query = {'id': req.body['id']};
         }; 
         if (req.body['_id']) {
             query = {'_id': new ObjectId(req.body['_id'])};
+            console.log("body _id");
         };
         if (req.params['_id']) {
             query = {'_id': new ObjectId(req.params['_id'])};
+            console.log("params _id");
         };
         if (!req.query['id'] && !req.body['id'] && !req.body['_id'] && !req.query["_id"] && !req.params['_id']) {
             console.log(query);
@@ -122,9 +125,11 @@ const updateContact = async (req, res, next) => {
         let id = {};
         if(req.query['id']) {
             id = {"id": req.query['id']};
+            console.log("update query id");
         };
         if(req.query['_id']) {
             id = {"_id": new ObjectId(req.query['_id'])};
+            console.log("update query _id");
         };
         if (req.query['id'] || req.query['_id']) {
             if (req.query['firstName']) {update.firstName = req.query['firstName']};
@@ -135,9 +140,11 @@ const updateContact = async (req, res, next) => {
         };
         if(req.body['id']) {
             id = {"id": req.body['id']};
+            console.log("update body id");
         };
         if(req.body['_id']) {
             id = {"_id": new ObjectId(req.body['_id'])};
+            console.log("update params _id");
         };
         if(req.body['id'] || req.body['_id'] || req.params['_id']) {
             if (req.body['firstName']) {update.firstName = req.body['firstName']};
@@ -148,12 +155,17 @@ const updateContact = async (req, res, next) => {
         };
         if(req.params['id']) {
             id = {"id": req.params['id']};
+            console.log("update params id");
         };
         if(req.params['_id']) {
             id = {"_id": new ObjectId(req.params['_id'])};
+            console.log("update params _id");
+
         };
         // console.log(update);
         let newValues = {$set: update};
+
+        console.log(id);
 
         let result = await mongodb.getDb().db('CSE341').collection("contacts").updateOne(id, newValues);
 
