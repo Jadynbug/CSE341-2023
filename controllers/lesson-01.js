@@ -78,20 +78,23 @@ const deleteContact = async (req, res, next) => {
 
         if (req.query['id']) {
             query = {'id': req.query['id']};
-        } 
+        }; 
         if (req.query['_id']) {
             query = {'_id': new ObjectId(req.query['_id'])};
-        }
+        };
         if (req.body['id']) {
             query = {'id': req.body['id']};
-        } 
+        }; 
         if (req.body['_id']) {
             query = {'_id': new ObjectId(req.body['_id'])};
-        }
-        if (!req.query['id'] && !req.body['id'] && !req.body['_id'] && !req.query["_id"]) {
+        };
+        if (req.params['_id']) {
+            query = {'_id': new ObjectId(req.params['_id'])};
+        };
+        if (!req.query['id'] && !req.body['id'] && !req.body['_id'] && !req.query["_id"] && !req.params['_id']) {
             console.log(query);
             res.send('lack of id error in delete');
-        }
+        };
 
         console.log(query);
     
@@ -105,8 +108,9 @@ const deleteContact = async (req, res, next) => {
 
 const updateContact = async (req, res, next) => {
     // console.log(req.query);
+    console.log(req.params);
     try {
-        if((!req.query['id'] && !req.query['_id']) && (!req.body['id'] && !req.body['_id'])) {
+        if((!req.query['id'] && !req.query['_id']) && (!req.body['id'] && !req.body['_id']) && (!req.params['id'] && !req.params['_id'])) {
             res.send("lack of id error");
         } 
         let update = {};
@@ -130,12 +134,18 @@ const updateContact = async (req, res, next) => {
         if(req.body['_id']) {
             id = {"_id": new ObjectId(req.body['_id'])};
         }
-        if(req.body['id'] || req.body['_id']) {
+        if(req.body['id'] || req.body['_id'] || req.params['_id']) {
             if (req.body['firstName']) {update.firstName = req.body['firstName']};
             if (req.body['lastName']) {update.lastName = req.body['lastName']};
             if (req.body['email']) {update.email = req.body['email']};
             if (req.body['favoriteColor']) {update.favoriteColor = req.body['favoriteColor']};
             if (req.body['bithday']) {update.bithday = req.body['bithday']};
+        }
+        if(req.params['id']) {
+            id = {"id": req.body['id']};
+        }
+        if(req.params['_id']) {
+            id = {"_id": new ObjectId(req.params['_id'])};
         }
         // console.log(update);
         let newValues = {$set: update};

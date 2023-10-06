@@ -16,8 +16,8 @@ routes.get('/Contacts', Controller.getData);
 
 routes.post('/Contacts', Controller.addContact);
 
-routes.delete("/Contacts", Controller.deleteContact);
+routes.delete("/Contacts/:_id", Controller.deleteContact);
 
-routes.put("/Contacts", Controller.updateContact);
+routes.put("/Contacts/:_id", Controller.updateContact);
 
 module.exports = routes;
